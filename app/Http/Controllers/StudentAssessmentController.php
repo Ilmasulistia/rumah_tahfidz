@@ -19,7 +19,7 @@ class StudentAssessmentController extends Controller
     {
         $student_assessment = Student_assessment::join('class', 'class.class_id', 'student_assessments.class_id')
         ->where('student_assessments.class_id', $class_id)->get();
-        // dd($class_id);
+        // dd($student_assessment);
         // dd($program_detail);
         $classes = Classes::where('class_id', $class_id)->get();
         $student = Student::all();
@@ -31,7 +31,10 @@ class StudentAssessmentController extends Controller
     public function create($student_assessment_id)
     {
         $student_assessment = Student_assessment::where('student_assessment_id', $student_assessment_id)->first();
-        // dd($student_assessment);
+        // dd($dialy_assesment->class_id);
+        // $student=Student::where('student_id', $student_id)->get();
+        // dd($student_id);
+        // dd($student_assessment->student_id);
         return view('studentassessment.create', compact('student_assessment', 'student_assessment_id'));
     }
 
@@ -48,7 +51,6 @@ class StudentAssessmentController extends Controller
         $student_assessment->ibadah = $request->ibadah;
         $student_assessment->class = $request->class;
         $student_assessment->note = $request->note;
-
         // return $student_assessment;
         $student_assessment->save();
         return redirect()->back();
@@ -68,25 +70,53 @@ class StudentAssessmentController extends Controller
         return view('studentassessment.edit',compact('student_assessment', 'student_id'));
     }
 
-    public function update(Request $request, Student_assessment $student_assessment_id)
-    {
-  
-        $student_assessment = Student_assessment::find($request->student_assessment_id);
-        $student_assessment->student_id= $request->student_id;
-        $student_assessment->class_id= $request->class_id;
-        $student_assessment->number_of_memorization= $request->input('number_of_memorization');
-        $student_assessment->behavior= $request->input('behavior');
-        $student_assessment->dilligence= $request->input('dilligence');
-        $student_assessment->neatness= $request->input('neatness');
-        $student_assessment->ibadah= $request->input('ibadah');
-        $student_assessment->class= $request->input('class');
-        $student_assessment->note= $request->input('note');
-        $student_assessment->update();
+    // public function update(Request $request, $student_id, $class_id){
+    //         $check = DB::table('student_assessments')
+    //             ->select('student_assessment_id')
+    //             ->where('student_id', $student_id)
+    //             ->where('class_id', $class_id)
+    //             ->first();
+    //         // dd($check);
+    //         if(!$check){
+    //             $student_assessment = new Student_assessment ([
+    //                 'student_id' => $student_id,
+    //                 'class_id' => $class_id,
+    //                 'number_of_memorization' => $request->input('number_of_memorization'),
+    //                 'behavior'=> $request->input('behavior'),
+    //                 'dilligence'=> $request->input('dilligence'),
+    //                 'neatness'=> $request->input('neatness'),
+    //                 'ibadah'=> $request->input('ibadah'),
+    //                 'class'=> $request->input('class'),
+    //                 'note'=> $request->input('note'),
 
-        return $student_assessment;
+    //             ]);
+    //             $student_assessment->save();
+    //             return $student_assessment;
+    //             return redirect()->back()->with('message', 'Keterangan Berhasil Ditambahkan');
+    //         }else{
+    //             \Session::flash('sukses','Data sudah ada');
+    //             return redirect()->back();
+    //         }
+    
+    //     }
+
+    public function update(Request $request, $student_assessment_id)
+    {
+        $student_assessment = Student_assessment::where('student_assessment_id', $student_assessment_id)->update([
+            'student_id' => $request->input('student_id'),
+            'class_id' => $request->input('class_id'),
+            'number_of_memorization'=> $request->input('number_of_memorization'),
+            'behavior'=> $request->input('behavior'),
+            'dilligence'=> $request->input('dilligence'),
+            'neatness'=> $request->input('neatness'),
+            'ibadah'=> $request->input('ibadah'),
+            'class'=> $request->input('class'),
+            'note'=> $request->input('note'),
+        ]);
+ 
         return redirect()->back();
-        
     }
+
 
 
 
