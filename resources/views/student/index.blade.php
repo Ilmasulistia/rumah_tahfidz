@@ -79,14 +79,14 @@
                                             <td>{{$stud->tuition_fee}}</td>
                                             <td>{{$stud->join_date}}</td>
                                             <td>
-                                                <a href="{{ route('student.show', [$stud->student_id])}}" class="btn btn-warning btn-sm">Detail<i class="fas fa-info-circle"></i></a>
+                                                <a href="{{route('student.show', [$stud->student_id])}}" class="btn btn-warning btn-sm">Detail<i class="fas fa-info-circle"></i></a>
                                                 <a href="{{route('student.edit', [$stud->student_id])}}"  class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                                                 <form action="{{route('student.delete',[$stud->student_id]) }}" method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                             </td>
                                         </tr>
                                         @endforeach

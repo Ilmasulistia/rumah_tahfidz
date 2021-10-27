@@ -16,8 +16,5 @@ class Sura extends Model
     {
         return $this->hasMany(Daily_assessment::class, 'surah_no', 'surah_no');
     }
-    public function surah_memorization()
-    {
-        return $this->hasMany(Surah_memorization::class, 'surah_no', 'surah_no');
-    }
+
 }

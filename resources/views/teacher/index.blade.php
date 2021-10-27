@@ -67,7 +67,7 @@
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger">Hapus<i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm">Hapus<i class="fas fa-trash-alt"></i></button>
                                             </form>
                                             </td>
                                         </tr>

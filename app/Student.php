@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Student extends Model
 {
@@ -16,6 +17,17 @@ class Student extends Model
     public function student_assessment()
     {
         return $this->hasMany(Student_assessment::class, 'student_id', 'student_id');
+    }
+
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'student_id' => [
+                'format' => 'S?', // Format kode yang akan digunakan.
+                'length' => 3 // Jumlah digit yang akan digunakan sebagai nomor urut
+            ]
+        ];
     }
 
 }

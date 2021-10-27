@@ -15,8 +15,7 @@ class CreateDailyAssessmentsTable extends Migration
     {
         Schema::create('daily_assessments', function (Blueprint $table) {
             $table->string('daily_assessment_id', 5);
-            $table->string('student_id', 5);
-            $table->string('class_id', 5);
+            $table->string('student_assessment_id', 5);
             $table->date('date_of_recitation');
             $table->string('verse', 7);
             $table->string('verse_end', 7);
@@ -26,8 +25,7 @@ class CreateDailyAssessmentsTable extends Migration
             $table->timestamps();
 
             $table->primary((['daily_assessment_id']));
-            $table->foreign('class_id')->references('class_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('student_id')->references('student_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('student_assessment_id')->references('student_assessment_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
             
         });
     }

@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','HomeController@index')->name('login.index');
 Route::get('/laporan/{class_id}', 'StudentAssessmentController@index')->name('laporan.index');
-Route::get('/laporan/create/{student_id}/{class_id}', 'StudentAssessmentController@create')->name('laporan.create');
+Route::get('/laporan/create/{student_assessment_id}', 'StudentAssessmentController@create')->name('laporan.create');
+// Route::post('/laporan/create/', 'StudentAssessmentController@update')->name('laporan.update');
+Route::patch('/laporan/{student_assessment_id}', 'StudentAssessmentController@update')->name('laporan.update');
 Route::get('/cetak_pdf', 'StudentAssessmentController@cetak_pdf');
 Route::get('/cetak_hafalan', 'DailyAssessmentController@cetak_hafalan');
 Auth::routes();
@@ -97,10 +99,11 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/hapuspenilaian/{daily_assessment_id}' , 'DailyAssessmentController@delete')->name('penilaian.delete');
 
         
-        Route::patch('/laporan/create/', 'StudentAssessmentController@update')->name('laporan.update');
+        
         // Route::get('/laporan/show/{student_id}', 'DailyAssessmentController@show')->name('laporan.show');
 
         Route::get('/detaillaporan', 'StudentAssessmentDetailController@index')->name('detaillaporan.index');
+        Route::get('/detaillaporan/create', 'StudentAssessmentDetailController@create')->name('detaillaporan.create');
 
         
     });

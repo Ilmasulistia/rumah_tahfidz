@@ -14,6 +14,7 @@ class CreateStudentAssessmentsTable extends Migration
     public function up()
     {
         Schema::create('student_assessments', function (Blueprint $table) {
+            $table->string('student_assessment_id', 5);
             $table->string('student_id', 5);
             $table->string('class_id', 5);
             $table->string('number_of_memorization', 7);
@@ -25,7 +26,7 @@ class CreateStudentAssessmentsTable extends Migration
             $table->string('class', 20);
             $table->timestamps();
 
-            $table->primary((['student_id', 'class_id']));
+            $table->primary('student_assessment_id');
             $table->foreign('class_id')->references('class_id')->on('class')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             

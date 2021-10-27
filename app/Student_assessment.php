@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Student_assessment extends Model
 {
-    protected $primaryKey = ['student_id', 'class_id'];
+    protected $primaryKey = ['student_assessment_id'];
     protected $table = 'student_assessments';
-    protected $fillable = ['student_id','class_id','number_of_memorization', 'behavior', 
+    protected $fillable = ['student_assessment_id','student_id','class_id','number_of_memorization', 'behavior', 
     'dilligence','neatness','ibadah', 'note', 'class'];
     public $incrementing = false;
     public $timestamps = false;
@@ -21,5 +22,19 @@ class Student_assessment extends Model
     }
     public function daily_assessment() {
         return $this->hasMany(Daily_assessment::class, ['student_id', 'student_id'],['class_id','class_id']);
+    }
+    public function student_assessment_detail() {
+        return $this->hasMany(Student_assessment_detail::class, ['student_id', 'student_id'],['class_id','class_id']);
+    }
+
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'student_assessment_id' => [
+                'format' => 'St?', // Format kode yang akan digunakan.
+                'length' => 3 // Jumlah digit yang akan digunakan sebagai nomor urut
+            ]
+        ];
     }
 }

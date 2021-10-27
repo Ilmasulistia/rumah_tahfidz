@@ -66,7 +66,7 @@
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger">
+                                                    <button class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>
                                                         Hapus
                                                     </button>

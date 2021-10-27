@@ -65,8 +65,8 @@
                                                     </button>
                                                 </form>
                                                 @elseif($roles == 2)
-                                                    <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
-                                                    data-target="#exampleModal">Tambah Nilai</button>
+                                                    <a href="/detaillaporan/create"
+                                                    class="btn btn-primary btn-sm">Tambah Nilai</i></a>
                                                     <a href="#"
                                                     class="btn btn-info btn-sm">Detail<i class="fas fa-info-circle"></i></a>
                                                     <a href="/cetak_pdf"
@@ -91,51 +91,6 @@
         </div>
     </div>
 </section><!-- Main content -->
-<!-- Modal Input-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nilai Rapor</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- FORM -->
-                <form action="#" method="POST">
-                    {{csrf_field()}}
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Materi</label>
-                        <select name="detail_id" class="form-control" id="detail_id">
-                            @foreach($program_detail as $detail)
-                            <option value="{{$detail->detail_id}}">{{$detail->materi}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label @error('number') class="text-danger" @enderror>Angka
-                            @error('number')
-                            | {{$message}}
-                            @enderror</label>
-                        <input name="number" type="text" class="form-control" placeholder="Angka">
-                    </div>
-                    <div class="form-group">
-                        <label @error('affective') class="text-danger" @enderror>Afektif @error('affective')
-                            | {{$message}}
-                            @enderror</label>
-                        <input name="affective" type="text" class="form-control" placeholder="Afektif">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 
 

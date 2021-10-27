@@ -14,16 +14,15 @@ class CreateStudentAssessmentDetailsTable extends Migration
     public function up()
     {
         Schema::create('student_assessment_details', function (Blueprint $table) {
-            $table->string('student_id', 5);
-            $table->string('class_id', 5);
+            $table->string('student_assessment_detail_id', 5);
+            $table->string('student_assessment_id', 5);
             $table->string('number', 7);
             $table->string('affective', 10);
             $table->string('detail_id', 10);
             $table->timestamps();
             
-            $table->primary((['student_id', 'class_id']));
-            $table->foreign('class_id')->references('class_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('student_id')->references('student_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
+            $table->primary((['student_assessment_detail_id']));
+            $table->foreign('student_assessment_id')->references('student_assessment_id')->on('student_assessments')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('detail_id')->references('detail_id')->on('program_details')->onDelete('cascade')->onUpdate('cascade');
         });
     }
