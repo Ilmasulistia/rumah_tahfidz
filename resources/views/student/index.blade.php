@@ -44,7 +44,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Jenis Kelamin</th>
                                             <th scope="col">Asal Sekolah</th>
@@ -79,7 +79,7 @@
                                             <td>{{$stud->tuition_fee}}</td>
                                             <td>{{$stud->join_date}}</td>
                                             <td>
-                                                <a href="{{route('student.show', [$stud->student_id])}}" class="btn btn-warning btn-sm">Detail<i class="fas fa-info-circle"></i></a>
+                                                <a href="{{route('student.show', [$stud->student_id])}}" class="btn btn-primary btn-sm"><i class="far fa-eye"></i></a>
                                                 <a href="{{route('student.edit', [$stud->student_id])}}"  class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                                                 <form action="{{route('student.delete',[$stud->student_id]) }}" method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"

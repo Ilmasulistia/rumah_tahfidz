@@ -5,20 +5,14 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">Masukkan Penilaian</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Isi Batas Hafalan</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('penilaian.update')}}" enctype="multipart/form-data">
+            <form method="POST" action="#" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                <input name="class_id" type="hidden" class="form-control" placeholder="Id kelas" value="{{$daily_assessment->class_id}}">
-                <input name="class_id" type="hidden" class="form-control" placeholder="Id kelas" value="{{$daily_assessment->class_id}}">
-                <div class="form-group">
-                    <label @error('class') class="text-danger" @enderror>Kelas @error('class')
-                        | {{$message}}
-                        @enderror</label>
-                    <input name=class class="form-control" placeholder="Kelas" value="{{old('class')}}">
-                </div>
+                <input name="student_assessment_id" type="hidden" class="form-control" placeholder="Id santri" 
+                    value="{{$student_assessment->student_assessment_id}}">
                 <div class="form-group">
                 <label @error('date_of_recitation') class="text-danger" @enderror>Tanggal Setoran @error('date_of_recitation')
                         | {{$message}}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,6 +13,10 @@ class UserController extends Controller
         $user=User::all();
 
         return view('user.index', compact('user'));
+    }
+    public function profile(){
+        $users = User::where('id', Auth::user()->id)->get();
+        return view('profile', compact('users'));
     }
     public function edit($user_id)
     {

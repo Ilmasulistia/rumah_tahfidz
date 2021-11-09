@@ -9,8 +9,7 @@ class Daily_assessment extends Model
 {
     protected $primaryKey = 'daily_assessment_id';
     protected $table = 'daily_assessments';
-    protected $fillable = ['daily_assessment_id','student_assessment_id', 'date_of_recitation','verse', 'verse_end','information', 'surah_no', 
-    'class'];
+    protected $fillable = ['daily_assessment_id','student_assessment_id', 'date_of_recitation','verse', 'verse_end','information', 'surah_no'];
     public $incrementing = false;
     public $timestamps = false;
 

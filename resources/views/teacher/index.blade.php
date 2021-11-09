@@ -43,7 +43,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Alamat</th>
                                             <th scope="col">Nomor HP</th>
@@ -59,7 +59,7 @@
                                             <td>{{$teach->phone_no}}</td>
                                             <td>
                                             <a href="{{route('teacher.edit', [$teach->nik])}}"
-                                                        class="btn btn-success btn-sm d-inline"><i
+                                                        class="btn btn-success btn-sm"><i
                                                             class="fas fa-edit"></i> </a>
 
                                             <form action="{{route('teacher.delete',[$teach->nik]) }}" method="post"
@@ -67,7 +67,7 @@
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm">Hapus<i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                             </td>
                                         </tr>

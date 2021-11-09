@@ -75,8 +75,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                        Hapus
+                                                        <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </td>
@@ -87,13 +86,16 @@
                                                 
                                             </td>
                                             <td>
-                                                <a href="/detaillaporan/create" class="btn btn-primary btn-sm">Isi Rapor</i> </a>
+                                                <a href="{{route('detaillaporan.create', [$assessment->student_assessment_id])}}" class="btn btn-primary btn-sm">Isi Rapor</i> </a>
                                                 <a href="{{route('laporan.create', [$assessment->student_assessment_id])}}"
-                                                class="btn btn-info btn-sm">Detail<i class="fas fa-info-circle"></i></a>
+                                                class="btn btn-primary btn-sm">Keterangan</i></a>
+                                                <a href="#"
+                                                class="btn btn-secondary btn-sm"><i class="far fa-eye"></i></a>
                                             </td>
                                             <td>
-                                                <a href="{{route('penilaian.create', [$assessment->student_id, $assessment->class_id])}}"
-                                                class="btn btn-secondary btn-sm">Isi batas hafalan</i> </a>
+                                                
+                                                <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
+                                                data-target="#addBatasHafalan">Isi batas hafalan</button>
                                             </td>
                                             @endif
                                            
@@ -148,7 +150,69 @@
         </div>
     </div>
 </div>
-
+<!-- Modal Add Batas Hafalan-->
+<div class="modal fade" id="addBatasHafalan" tabindex="-1" aria-labelledby="addBatasHafalanLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSantriLabel">Isi Batas Hafalan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- FORM -->
+                <form action="{{route('penilaian.store')}}" method="POST">
+                    {{csrf_field()}}
+                    <input name="student_assessment_id" type="hidden" class="form-control" placeholder="Id santri" 
+                    value="{{$assessment->student_assessment_id}}">
+                    <div class="form-group">
+                <label @error('date_of_recitation') class="text-danger" @enderror>Tanggal Setoran @error('date_of_recitation')
+                        | {{$message}}
+                        @enderror</label>
+                    <div class="input-group">
+                        <input name="date_of_recitation" type="text" class="date form-control" placeholder="Tanggal Setoran"
+                            value="{{old('date_of_recitation')}}">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                <div class="form-group">
+                <label for="exampleFormControlSelect1">Surah</label>
+                        <select name="surah_no" class="form-control" id="surah_no">
+                            @foreach($sura as $sura)
+                            <option value="{{$sura->surah_no}}">{{$sura->surah_name}}</option>
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label @error('verse') class="text-danger" @enderror> Dari ayat @error('verse')
+                        | {{$message}}
+                        @enderror</label>
+                    <input name=verse class="form-control" placeholder="Dari ayat" value="{{old('verse')}}">
+                </div>
+                <div class="form-group">
+                    <label @error('verse_end') class="text-danger" @enderror>Sampai ayat @error('verse_end')
+                        | {{$message}}
+                        @enderror</label>
+                    <input name=verse_end class="form-control" placeholder="Sampai ayat" value="{{old('verse_end')}}">
+                </div>
+                <div class="form-group">
+                    <label @error('information') class="text-danger" @enderror>Keterangan @error('information')
+                        | {{$message}}
+                        @enderror</label>
+                        <textarea name=information class="form-control" placeholder="Keterangan" rows="2"
+                            value="{{old('information')}}"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @stop
 

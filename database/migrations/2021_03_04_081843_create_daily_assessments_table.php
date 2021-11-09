@@ -21,7 +21,6 @@ class CreateDailyAssessmentsTable extends Migration
             $table->string('verse_end', 7);
             $table->string('information', 12);
             $table->string('surah_no', 3);
-            $table->string('class', 20);
             $table->timestamps();
 
             $table->primary((['daily_assessment_id']));

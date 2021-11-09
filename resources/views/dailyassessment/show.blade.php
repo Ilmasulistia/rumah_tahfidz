@@ -56,17 +56,17 @@
                                             <td>{{$daily->information}}</td>
                                             <td>
                 
-                                                <a href="{{route('penilaian.edit', [$daily->student_id])}}"  class="btn btn-success btn-sm">Edit<i class="fas fa-edit"></i></a>
-                                                <a href="#"  class="btn btn-primary btn-sm">Cetak<i class="fas fa-print"></i></a>
-                                                <form action="{{route('penilaian.delete',[$daily->student_id]) }}" method="post"
+                                                <a href="#"  class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                <form action="#" method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                        Hapus
+                                                    <button class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash-alt"></i>
                                                     </button>
+                                                </form>
+                                                    <a href="#"  class="btn btn-primary btn-sm">Cetak<i class="fas fa-print"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach

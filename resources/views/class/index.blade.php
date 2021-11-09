@@ -60,7 +60,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Semester</th>
                                             <th scope="col">Tahun</th>
                                             <th scope="col">Program</th>
@@ -87,7 +87,7 @@
                                                 <a href="laporan/{{$class->class_id}}"
                                                     class="btn btn-primary btn-sm">Isi Kelas</i> </a>
                                                 <a href="{{route('class.edit', [$class->class_id])}}"
-                                                    class="btn btn-warning btn-sm">Edit</i> </a>
+                                                class="btn btn-success btn-sm"><i class="fas fa-edit"></i> </a>
 
                                                 <form action="{{route('class.delete',[$class->class_id]) }}"
                                                     method="post"
@@ -96,8 +96,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                        Hapus
+                                                        <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                                 @endif

@@ -99,7 +99,7 @@
         <!-- Nav Item - About -->
         @if (auth()->user()->role->name =="Student")
         <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/datasantri/{student_id}">
                 <!-- <i class="fas fa-fw fa-user"></i> -->
                 <span>{{ __('Profil') }}</span>
             </a>

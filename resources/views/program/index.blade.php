@@ -40,7 +40,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Nama program</th>
                                             <th scope="col">Aksi</th>
 
@@ -52,17 +52,20 @@
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$prog->program_name}}</td>
                                             <td>
-                                                <a href="{{route('program.edit', [$prog->program_id])}}"
-                                                    class="btn btn-warning btn-sm">Edit<i class="fas fa-edit"></i></a>
                                                 <a href="{{route('programdetail.index', [$prog->program_id])}}"
-                                                    class="btn btn-info btn-sm">Detail<i class="fas fa-info-circle"></i></a>
+                                                    class="btn btn-info btn-sm">Detail<i
+                                                        class="fas fa-info-circle"></i></a>
+                                                <a href="{{route('program.edit', [$prog->program_id])}}"
+                                                    class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
 
-                                                <form action="{{route('program.delete',[$prog->program_id]) }}" method="post"
+                                                <form action="{{route('program.delete',[$prog->program_id]) }}"
+                                                    method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm">Hapus<i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-trash-alt"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

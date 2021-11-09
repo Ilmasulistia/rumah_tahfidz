@@ -40,7 +40,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Nama course</th>
                                             <th scope="col">Aksi</th>
 
@@ -53,16 +53,16 @@
                                             <td>{{$course->course_name}}</td>
                                             <td>
                                                 <a href="{{route('course.edit', [$course->course_id])}}"
-                                                        class="btn btn-warning btn-sm">Edit</i> </a>
+                                                    class="btn btn-success btn-sm"><i class="fas fa-edit"></i> </a>
 
-                                                <form action="{{route('course.delete',[$course->course_id]) }}" method="post"
+                                                <form action="{{route('course.delete',[$course->course_id]) }}"
+                                                    method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                        Hapus
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </td>

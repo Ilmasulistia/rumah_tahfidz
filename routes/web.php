@@ -18,6 +18,8 @@ Route::get('logout', function(){
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/profile', 'HomeController@profile')->name('profile');
+    Route::get('change-password', 'HomeController@changePassword')->name('view.changePassword');
+    Route::post('change-password', 'HomeController@store')->name('change.password');
 
     Route::middleware(['cekrole:Admin'])->group(function(){
         Route::get('/datauser', 'UserController@index')->name('user.index');
@@ -91,24 +93,30 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['cekrole:Teacher'])->group(function(){
         Route::get('/penilaianharian/{class_id}', 'DailyAssessmentController@index')->name('penilaian.index');      
-        Route::get('/penilaianharian/create/{student_id}/{class_id}', 'DailyAssessmentController@create')->name('penilaian.create');
-        Route::get('/editpenilaianharian/{student_id}', 'DailyAssessmentController@edit')->name('penilaian.edit');
+        Route::get('/penilaianharian/create/{student_assessment_id}', 'DailyAssessmentController@create')->name('penilaian.create');
+        Route::get('/editpenilaianharian/{student_assessment_id}', 'DailyAssessmentController@edit')->name('penilaian.edit');
         Route::get('/batashafalan/show', 'DailyAssessmentController@show')->name('penilaian.show');
         Route::patch('/penilaianharian/create/', 'DailyAssessmentController@update')->name('penilaian.update');
-        Route::post('/penilaianharian/show', 'DailyAssessmentController@store')->name('penilaian.store');
+        Route::post('/penilaianharian/create', 'DailyAssessmentController@store')->name('penilaian.store');
         Route::delete('/hapuspenilaian/{daily_assessment_id}' , 'DailyAssessmentController@delete')->name('penilaian.delete');
 
-        
         
         // Route::get('/laporan/show/{student_id}', 'DailyAssessmentController@show')->name('laporan.show');
 
         Route::get('/detaillaporan', 'StudentAssessmentDetailController@index')->name('detaillaporan.index');
-        Route::get('/detaillaporan/create', 'StudentAssessmentDetailController@create')->name('detaillaporan.create');
-
+        Route::get('/detaillaporan/create/{student_assessment_id}', 'StudentAssessmentDetailController@create')->name('detaillaporan.create');
+        Route::patch('/detaillaporan/create/', 'StudentAssessmentDetailController@update')->name('detaillaporan.update');
+        Route::post('/detaillaporan/create', 'StudentAssessmentDetailController@store')->name('detaillaporan.store');
         
     });
 
     Route::middleware(['cekrole:Student'])->group(function(){
+        Route::get('/datasantri/{student_id}', 'StudentController@show')->name('student.show');
+        
+    });
+
+    Route::middleware(['cekrole:Head'])->group(function(){
+        
         
     });
 

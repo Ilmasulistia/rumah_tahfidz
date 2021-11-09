@@ -42,7 +42,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">ID User</th>
                                             <th scope="col">Username</th>
                                             <th scope="col">Role</th>
@@ -58,18 +58,14 @@
                                             <td>{{$user->role_id}}</td>
                                             <td>
                                                 <a href="{{route('user.edit', [$user->user_id])}}"
-                                                        class="btn btn-success btn-sm d-inline"><i
-                                                            class="fas fa-edit"></i> </a>
+                                                class="btn btn-success btn-sm"><i class="fas fa-edit"></i> </a>
 
                                                 <form action="{{route('user.delete',[$user->user_id]) }}" method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash"></i>
-                                                        Hapus
-                                                    </button>
+                                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

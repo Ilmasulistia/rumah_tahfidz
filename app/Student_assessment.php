@@ -21,10 +21,10 @@ class Student_assessment extends Model
         return $this->belongsTo(Classes::class, 'class_id', 'class_id');
     }
     public function daily_assessment() {
-        return $this->hasMany(Daily_assessment::class, ['student_id', 'student_id'],['class_id','class_id']);
+        return $this->hasMany(Daily_assessment::class, 'student_assessment_id', 'student_assessment_id');
     }
     public function student_assessment_detail() {
-        return $this->hasMany(Student_assessment_detail::class, ['student_id', 'student_id'],['class_id','class_id']);
+        return $this->hasMany(Student_assessment_detail::class, 'student_assessment_id', 'student_assessment_id');
     }
 
     use AutoNumberTrait;

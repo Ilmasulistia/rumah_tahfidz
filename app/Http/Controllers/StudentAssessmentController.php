@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Student_assessment;
+use App\Daily_assessment;
 use App\Student;
 use App\Classes;
 use App\User;
+use App\Sura;
 use Illuminate\Http\Request;
 use Auth;
 use PDF;
@@ -23,9 +25,11 @@ class StudentAssessmentController extends Controller
         // dd($program_detail);
         $classes = Classes::where('class_id', $class_id)->get();
         $student = Student::all();
+        $sura = Sura::all();
+        // $daily_assessment = Daily_assessment::where('daily_assessment_id', $daily_assessment_id)->get();
         $roles = Auth::user()->role_id;
         // dd($roles);
-        return view('studentassessment.index', compact('student_assessment', 'roles', 'student_id', 'student','classes', 'class_id'));
+        return view('studentassessment.index', compact('student_assessment', 'sura','roles', 'student_id', 'student','classes', 'class_id'));
     }
 
     public function create($student_assessment_id)
@@ -115,9 +119,9 @@ class StudentAssessmentController extends Controller
         ]);
  
         return redirect()->back();
+        // return redirect()->route('studentassessment.index');
+        //ganti
     }
-
-
 
 
     public function cetak_pdf()

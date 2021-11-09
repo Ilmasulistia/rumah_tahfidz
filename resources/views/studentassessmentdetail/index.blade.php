@@ -37,7 +37,7 @@
                                 <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
