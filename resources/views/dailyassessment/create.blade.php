@@ -8,53 +8,50 @@
             <h6 class="m-0 font-weight-bold text-primary">Isi Batas Hafalan</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="#" enctype="multipart/form-data">
+            <form method="POST" action="{{route('penilaian.store', $student_assessment_id)}}"
+                enctype="multipart/form-data">
                 @csrf
-                @method('PATCH')
-                <input name="student_assessment_id" type="hidden" class="form-control" placeholder="Id santri" 
+                <input name="student_assessment_id" type="hidden" class="form-control" placeholder="Id santri"
                     value="{{$student_assessment->student_assessment_id}}">
                 <div class="form-group">
-                <label @error('date_of_recitation') class="text-danger" @enderror>Tanggal Setoran @error('date_of_recitation')
+                    <label @error('date_of_recitation') class="text-danger" @enderror>Tanggal Setoran
+                        @error('date_of_recitation')
                         | {{$message}}
                         @enderror</label>
                     <div class="input-group">
-                        <input name="date_of_recitation" type="text" class="date form-control" placeholder="Tanggal Setoran"
-                            value="{{old('date_of_recitation')}}">
+                        <input name="date_of_recitation" type="text" class="date form-control"
+                            placeholder="Tanggal Setoran" value="{{old('date_of_recitation')}}" required>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
                     </div>
-                <div class="form-group">
-                <label for="exampleFormControlSelect1">Surah</label>
-                        <select name="surah_no" class="form-control" id="surah_no">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Juz</label>
+                        <select name="juz_no" class="form-control" id="juz_no">
                             @foreach($sura as $sura)
-                            <option value="{{$sura->surah_no}}">{{$sura->surah_name}}</option>
+                            <option value="{{$sura->juz_no}}">{{$sura->juz_no}}</option>
                             @endforeach
                         </select>
-                </div>
-                <div class="form-group">
-                    <label @error('verse') class="text-danger" @enderror> Dari ayat @error('verse')
-                        | {{$message}}
-                        @enderror</label>
-                    <input name=verse class="form-control" placeholder="Dari ayat" value="{{old('verse')}}">
-                </div>
-                <div class="form-group">
-                    <label @error('verse_end') class="text-danger" @enderror>Sampai ayat @error('verse_end')
-                        | {{$message}}
-                        @enderror</label>
-                    <input name=verse_end class="form-control" placeholder="Sampai ayat" value="{{old('verse_end')}}">
-                </div>
-                <div class="form-group">
-                    <label @error('information') class="text-danger" @enderror>Keterangan @error('information')
-                        | {{$message}}
-                        @enderror</label>
-                        <textarea name=information class="form-control" placeholder="Keterangan" rows="2"
-                            value="{{old('information')}}"></textarea>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <label @error('page_no') class="text-danger" @enderror> Halaman @error('page_no')
+                            | {{$message}}
+                            @enderror</label>
+                        <input name=page_no class="form-control" placeholder="Halaman" value="{{old('page_no')}}"
+                            required>
+                    </div>
+                    <td><input name="part1" type="text" style="display: none" class="form-control" value="Belum Setor">
+                    </td>
+                    <td><input name="part2" type="text" style="display: none" class="form-control" value="Belum Setor">
+                    </td>
+                    <td><input name="part3" type="text" style="display: none" class="form-control" value="Belum Setor">
+                    </td>
+
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            onclick="return confirm('anda yakin?')">Batal</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                        <button type="submit" class="btn btn-primary">Oke</button>
+                        
             </form>
         </div>
     </div>

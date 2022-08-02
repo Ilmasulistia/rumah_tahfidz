@@ -17,13 +17,13 @@ class CreateStudentAssessmentsTable extends Migration
             $table->string('student_assessment_id', 5);
             $table->string('student_id', 5);
             $table->string('class_id', 5);
-            $table->string('number_of_memorization', 7);
-            $table->string('behavior', 10);
-            $table->string('dilligence', 10);
-            $table->string('neatness', 10);
-            $table->string('ibadah', 10);
-            $table->string('note', 300);
-            $table->string('class', 20);
+            $table->string('number_of_memorization', 7)->nullable();
+            $table->string('behavior', 10)->nullable();
+            $table->string('dilligence', 10)->nullable();
+            $table->string('neatness', 10)->nullable();
+            $table->string('ibadah', 10)->nullable();
+            $table->string('note', 300)->nullable();
+            $table->string('class', 20)->nullable();
             $table->timestamps();
 
             $table->primary('student_assessment_id');

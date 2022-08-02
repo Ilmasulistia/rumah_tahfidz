@@ -17,7 +17,7 @@ class CreateStudentAssessmentDetailsTable extends Migration
             $table->string('student_assessment_detail_id', 5);
             $table->string('student_assessment_id', 5);
             $table->string('number', 7);
-            $table->string('affective', 10);
+            $table->string('status', 10);
             $table->string('detail_id', 10);
             $table->timestamps();
             

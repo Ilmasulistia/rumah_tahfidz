@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Pengajar</h1>
+                <h2 class="m-0 text-dark">Data Guru</h2>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -27,12 +27,18 @@
             <div class="col-12">
                 <link href="{{asset('/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
                 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-                    <a href="{{ route('teacher.create') }}" class="btn btn-primary">Tambah Data Pengajar</a>
+                @if($roles == 1)
+                    <a href="{{ route('teacher.create') }}" class="btn btn-primary">Tambah Data Guru</a>
+                    <a href="{{route('teacher.export')}}" class="btn btn-success btn-sm">Export</a>
                     @if (session('Status'))
                     <div class="alert alert-success">
                         {{ session('Status') }}
                     </div>
                     @endif
+                @elseif($roles == 4)
+                <a></a>
+                <a href="{{route('teacher.export')}}" class="btn btn-success btn-sm">Export</a>
+                @endif
                 </nav>
                 <div class="row">
                     <div class="col-md-12">
@@ -40,14 +46,16 @@
                             <div class="card card-primary">
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
+                                <table class="display" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Alamat</th>
                                             <th scope="col">Nomor HP</th>
+                                            @if($roles == 1)
                                             <th scope="col">Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,6 +65,7 @@
                                             <td>{{$teach->name}}</td>
                                             <td>{{$teach->address}}</td>
                                             <td>{{$teach->phone_no}}</td>
+                                            @if($roles == 1)
                                             <td>
                                             <a href="{{route('teacher.edit', [$teach->nik])}}"
                                                         class="btn btn-success btn-sm"><i
@@ -69,6 +78,7 @@
                                                     @method('DELETE')
                                                     <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                             </form>
+                                            @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -95,30 +105,16 @@
 
 @stop
 
-<script src="{{asset('/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- Core plugin JavaScript-->
-<script src="{{asset('/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<!-- Custom scripts for all pages-->
-<script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
-<!-- Page level plugins -->
-<script src="{{asset('/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Page level custom scripts -->
-<script src="{{asset('/js/demo/datatables-demo.js')}}"></script>
-@section('mscript')
+@section('javascript')
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <script>
-    $('.date').datepicker({
+$('.date').datepicker({
         format: 'mm-dd-yyyy'
-    });
+ });
 
-
-    $(document).ready(function () {
-        $('#tbpas').DataTable();
-    });
-
+$(document).ready( function () {
+    $('#tbpas').DataTable();
+} );
 </script>
-
-
-
 
 @endsection

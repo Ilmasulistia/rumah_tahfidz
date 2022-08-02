@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Kepengurusan</h1>
+                <h2 class="m-0 text-dark">Data Kepengurusan</h2>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -28,7 +28,11 @@
                 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
                     <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
                         data-target="#exampleModal">Tambah Data Kepengurusan</button>
-
+                        @if (session('Status'))
+                    <div class="alert alert-success">
+                        {{ session('Status') }}
+                    </div>
+                    @endif
                 </nav>
 
                 <div class="row">
@@ -37,7 +41,7 @@
                             <div class="card card-primary">
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
+                                <table class="display" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -118,13 +122,13 @@
                             @error('start_periode')
                             | {{$message}}
                             @enderror</label>
-                        <input name="start_periode" type="text" class="form-control" placeholder="Periode Mulai">
+                        <input name="start_periode" type="text" class="form-control" placeholder="Periode Mulai" required>
                     </div>
                     <div class="form-group">
                         <label @error('position') class="text-danger" @enderror>Jabatan @error('position')
                             | {{$message}}
                             @enderror</label>
-                        <input name="position" type="text" class="form-control" placeholder="Jabatan">
+                        <input name="position" type="text" class="form-control" placeholder="Jabatan" required>
                     </div>
             </div>
             <div class="modal-footer">
@@ -138,28 +142,18 @@
 
 @stop
 
-<script src="{{asset('/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- Core plugin JavaScript-->
-<script src="{{asset('/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<!-- Custom scripts for all pages-->
-<script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
-<!-- Page level plugins -->
-<script src="{{asset('/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Page level custom scripts -->
-<script src="{{asset('/js/demo/datatables-demo.js')}}"></script>
-@section('mscript')
+@section('javascript')
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <script>
-    $('.date').datepicker({
+$('.date').datepicker({
         format: 'mm-dd-yyyy'
-    });
+ });
 
-
-    $(document).ready(function () {
-        $('#tbpas').DataTable();
-    });
-
+$(document).ready( function () {
+    $('#tbpas').DataTable();
+} );
 </script>
+
 
 
 

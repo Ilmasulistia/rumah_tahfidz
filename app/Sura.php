@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sura extends Model
 {
-    protected $primaryKey = 'surah_no';
+    protected $primaryKey = 'juz_no';
     protected $table = 'suras';
-    protected $fillable = ['surah_no','surah_name'];
+    protected $fillable = ['juz_no'];
     public $incrementing = false;
     public $timestamps = false;
 
     public function daily_assessment()
     {
-        return $this->hasMany(Daily_assessment::class, 'surah_no', 'surah_no');
+        return $this->hasMany(Daily_assessment::class, 'juz_no', 'juz_no');
     }
-
+    public function page() {
+        return $this->hasMany(Page::class, 'juz_no', 'juz_no');
+    }
 }

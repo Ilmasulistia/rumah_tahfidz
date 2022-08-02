@@ -12,24 +12,18 @@ use App\Course;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        $user = User::all()->count();
+        $teacher = Teacher::all()->count();
+        $student = Student::all()->count();
+        $course = Course::all()->count();
+        return view('dashboard', compact('user','teacher', 'student','course'));
        
     }
     public function dashboard()
@@ -60,7 +54,6 @@ class HomeController extends Controller
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
         return view('profile')->with('message', 'Password berhasil diubah');
-
 
     }
 

@@ -15,7 +15,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama</strong>
-                <input type="text" name="name" value="{{ $student->name }}" class="form-control" placeholder="Nama">
+                <input type="text" name="name" value="{{ $student->name }}" class="form-control" placeholder="Nama" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -23,7 +23,7 @@
                 <strong>Jenis Kelamin</strong>
                 <!-- <input type="text" name="gender" value="{{ $student->gender }}" class="form-control"
                     placeholder="Jenis Kelamin"> -->
-                <select name="gender" class="form-control" placeholder="Jenis Kelamin" value="{{old('gender')}}">
+                <select name="gender" class="form-control" placeholder="Jenis Kelamin" value="{{old('gender')}}" required>
                     <option selected disabled readonly>-Jenis Kelamin-</option>
                     <option value="1">Laki-Laki</option>
                     <option value="2">Perempuan</option>
@@ -34,63 +34,63 @@
             <div class="form-group">
                 <strong>Asal Sekolah</strong>
                 <input type="text" name="school_name" value="{{ $student->school_name }}" class="form-control"
-                    placeholder="Asal Sekolah">
+                    placeholder="Asal Sekolah" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Alamat</strong>
                 <input type="text" name="address" value="{{ $student->address }}" class="form-control"
-                    placeholder="Alamat">
+                    placeholder="Alamat" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Tempat lahir</strong>
                 <input type="text" name="birth_place" value="{{ $student->birth_place }}" class="form-control"
-                    placeholder="Tempat Lahir">
+                    placeholder="Tempat Lahir" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Tanggal Lahir</strong>
                 <input type="text" name="birth_date" value="{{ $student->birth_date }}" class="form-control"
-                    placeholder="Tempat lahir">
+                    placeholder="Tempat lahir" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama Orangtua</strong>
                 <input type="text" name="parents_name" value="{{ $student->parents_name }}" class="form-control"
-                    placeholder="Nama Orangtua">
+                    placeholder="Nama Orangtua" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nomor HP</strong>
                 <input type="text" name="phone_no" value="{{ $student->phone_no }}" class="form-control"
-                    placeholder="Nomor HP">
+                    placeholder="Nomor HP" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Pekerjaan Orangtua</strong>
                 <input type="text" name="parent_occupation" value="{{ $student->parent_occupation }}"
-                    class="form-control" placeholder="Pekerjaan Orangtua">
+                    class="form-control" placeholder="Pekerjaan Orangtua" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>SPP</strong>
                 <input type="text" name="tuition_fee" value="{{ $student->tuition_fee }}" class="form-control"
-                    placeholder="SPP">
+                    placeholder="SPP" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Tanggal Bergabung</strong>
                 <input type="text" name="join_date" value="{{ $student->join_date }}" class="form-control"
-                    placeholder="Tanggal Bergabung">
+                    placeholder="Tanggal Bergabung" required>
             </div>
         </div>
             <div class="modal-footer">

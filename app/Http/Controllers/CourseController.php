@@ -24,7 +24,7 @@ class CourseController extends Controller
         $course->course_id = $request->course_id;
         $course->course_name = $request->course_name;
         $course->save();
-        return redirect()->route('course.index');
+        return redirect()->route('course.index')->with('Status', 'Data Berhasil Ditambah');
     }
 
     public function edit($course_id)
@@ -35,20 +35,20 @@ class CourseController extends Controller
 
         public function update(Request $request, course $course_id)
     {
-        // $validation = $request->validate([
-        //         'course_name' => 'required|min:5'
-        //     ],
-        //     [
-        //         'course_name.required' => 'Harus diisi',
-        //         'course_name.min' => 'Minimal 5 Karakter',
-        //     ]
-        // );
+        $validation = $request->validate([
+                'course_name' => 'required|min:5'
+            ],
+            [
+                'course_name.required' => 'Harus diisi',
+                'course_name.min' => 'Minimal 5 Karakter',
+            ]
+        );
 
         $course = course::find($request->course_id);
         $course->course_id= $request->input('course_id');
         $course->course_name= $request->input('course_name');
         $course->update();
-        return redirect()->route('course.index');
+        return redirect()->route('course.index')->with('Status', 'Data Berhasil Diubah');
     }
     public function delete($course_id)
     {

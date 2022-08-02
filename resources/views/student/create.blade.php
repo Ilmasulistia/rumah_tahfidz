@@ -15,32 +15,32 @@
                         | {{$message}}
                         @enderror</label>
                     <input name="user_id" type="text" class="form-control" placeholder="ID Santri"
-                        value="{{old('user_id')}}">
+                        value="{{old('user_id')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('username') class="text-danger" @enderror>Username @error('username')
                         | {{$message}}
                         @enderror</label>
                     <input name="username" type="text" class="form-control" placeholder="Username"
-                        value="{{old('username')}}">
+                        value="{{old('username')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('email') class="text-danger" @enderror>Email @error('email')
                         | {{$message}}
                         @enderror</label>
-                    <input name="email" type="email" class="form-control" placeholder="E-mail" value="{{old('email')}}">
+                    <input name="email" type="email" class="form-control" placeholder="E-mail" value="{{old('email')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('name') class="text-danger" @enderror>Nama @error('name')
                         | {{$message}}
                         @enderror</label>
-                    <input name="name" type="text" class="form-control" placeholder="Nama" value="{{old('name')}}">
+                    <input name="name" type="text" class="form-control" placeholder="Nama" value="{{old('name')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('gender') class="text-danger" @enderror>Jenis Kelamin @error('gender')
                         | {{$message}}
                         @enderror</label>
-                    <select name="gender" class="form-control" placeholder="Jenis Kelamin" value="{{old('gender')}}">
+                    <select name="gender" class="form-control" placeholder="Jenis Kelamin" value="{{old('gender')}}" required>
                         <option selected disabled readonly>-Jenis Kelamin-</option>
                         <option value="1">Laki-Laki</option>
                         <option value="2">Perempuan</option>
@@ -51,21 +51,21 @@
                         | {{$message}}
                         @enderror</label>
                     <input name="school_name" type="text" class="form-control" placeholder="Asal Sekolah"
-                        value="{{old('school_name')}}">
+                        value="{{old('school_name')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('address') class="text-danger" @enderror>Alamat @error('address')
                         | {{$message}}
                         @enderror</label>
                     <textarea name=address class="form-control" placeholder="Alamat" rows="2"
-                        value="{{old('address')}}"></textarea>
+                        value="{{old('address')}}" required></textarea>
                 </div>
                 <div class="form-group">
                     <label @error('birth_place') class="text-danger" @enderror>Tempat Lahir @error('birth_place')
                         | {{$message}}
                         @enderror</label>
                     <input name="birth_place" type="numbtexter" class="form-control" placeholder="Tempat Lahir"
-                        value="{{old('birth_place')}}">
+                        value="{{old('birth_place')}}" required>
                 </div>
                 <div class="form-group">
                     <label @error('birth_date') class="text-danger" @enderror>Tanggal Lahir @error('birth_date')
@@ -73,7 +73,7 @@
                         @enderror</label>
                     <div class="input-group">
                         <input name="birth_date" type="text" class="date form-control" placeholder="Tanggal Lahir"
-                            value="{{old('birth_date')}}">
+                            value="{{old('birth_date')}}" required>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -83,14 +83,14 @@
                             | {{$message}}
                             @enderror</label>
                         <textarea name=parents_name class="form-control" placeholder="Nama Orangtua" rows="2"
-                            value="{{old('parents_name')}}"></textarea>
+                            value="{{old('parents_name')}}" required></textarea>
                     </div>
                     <div class="form-group">
                         <label @error('phone_no') class="text-danger" @enderror>Nomor HP @error('phone_no')
                             | {{$message}}
                             @enderror</label>
                         <input name="phone_no" type="numbtexter" class="form-control" placeholder="Nomor HP"
-                            value="{{old('phone_no')}}">
+                            value="{{old('phone_no')}}" required>
                     </div>
                     <div class="form-group">
                         <label @error('parent_occupation') class="text-danger" @enderror>Pekerjaan Orangtua
@@ -98,13 +98,13 @@
                             | {{$message}}
                             @enderror</label>
                         <textarea name=parent_occupation class="form-control" placeholder="Pekerjaan Orangtua" rows="2"
-                            value="{{old('parent_occupation')}}"></textarea>
+                            value="{{old('parent_occupation')}}" required></textarea>
                     </div>
                     <div class="form-group">
                         <label @error('tuition_fee') class="text-danger" @enderror>SPP @error('tuition_fee')
                             | {{$message}}
                             @enderror</label>
-                        <input name="tuition_fee" class="form-control" placeholder="SPP" value="{{old('tuition_fee')}}">
+                        <input name="tuition_fee" class="form-control" placeholder="SPP" value="{{old('tuition_fee')}}" required>
                     </div>
                     <div class="form-group">
                         <label @error('join_date') class="text-danger" @enderror>Tanggal Bergabung @error('join_date')
@@ -112,7 +112,7 @@
                             @enderror</label>
                         <div class="input-group">
                             <input name="join_date" type="text" class="date form-control"
-                                placeholder="Tanggal Bergabung" value="{{old('join_date')}}">
+                                placeholder="Tanggal Bergabung" value="{{old('join_date')}}" required>
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>

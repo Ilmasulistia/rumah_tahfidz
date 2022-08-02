@@ -10,7 +10,7 @@ class Student_assessment extends Model
     protected $primaryKey = 'student_assessment_id';
     protected $table = 'student_assessments';
     protected $fillable = ['student_assessment_id','student_id','class_id','number_of_memorization', 'behavior', 
-    'dilligence','neatness','ibadah', 'note', 'class'];
+    'dilligence','neatness','ibadah', 'note', 'class','status','condition'];
     public $incrementing = false;
     public $timestamps = false;
 

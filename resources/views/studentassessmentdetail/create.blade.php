@@ -32,27 +32,31 @@
                             </div>
                             <div class="card-body">
                             <table class="table table-responsive-sm table-striped">
-                            <form method="POST" action="{{route('detaillaporan.store')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('detaillaporan.store', $student_assessment_id)}}" enctype="multipart/form-data">
                             @csrf
-                            <input name="student_assessment_id" type="hidden" class="form-control" placeholder="Id santri" 
-                            value="{{$student_assessment->student_assessment_id}}">
-                                @foreach ($programs as $program)
+                            
+                                @foreach ($program as $program)
                                 <tr>
-                                    <th colspan="5" class="text-center" >{{$program->program_name}}</th>
+                                    <th colspan="6" class="text-center" >{{$program->program_name}}</th>
                                 </tr>
                                     <tr class="text-center">
                                         <th class="align-middle border-right">No</th>
                                         <th class="align-middle border-right">Materi</th>
+                                        <th></th>
+                                        <th></th>
                                         <th class="align-middle border-right">Nilai Angka</th>
-                                        <th class="align-middle border-right">Afektif</th>
+                                        <!-- <th class="align-middle border-right">Status</th> -->
                                     </tr>
                                 <tbody>
                                     @foreach ($program->program_detail as $q)
                                     <tr>
                                         <th class="border-right" scope="row">{{$loop->iteration}}.</th>
                                         <td class="border-right">{{$q->materi}}</td>
-                                        <td><input name="number" type="text" class="form-control" value="{{old('number')}}"></td>
-                                        <td><input name="affective" type="text" class="form-control" value="{{old('affective')}}"></td>                                    
+                                        <td><input name="student_assessment_id[]" type="text" style="display: none" class="form-control" placeholder="Id santri" 
+                                        value="{{$student_assessment->student_assessment_id}}"></td>
+                                        <td><input name="detail_id[]" value="{{$q->detail_id}}" type="text" style="display: none" class="form-control"></td>
+                                        <td><input name="number[]" type="text" class="form-control" required></td>
+                                        <td><input name="status[]" type="text" style="display: none" class="form-control" value="In Review"></td>                                    
                                     </tr>
                                     @endforeach
                                     @endforeach

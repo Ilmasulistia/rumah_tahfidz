@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Edit course</h2>
+            <h2>Edit Program</h2>
         </div>
     </div>
     <div class="card-body">
@@ -14,8 +14,8 @@
             <input type="hidden" name="course_id" value="{{ $course->course_id }}" class="form-control">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                <strong>Nama course</strong>
-                <input type="text" name="course_name" value="{{ $course->course_name }}" class="form-control" placeholder="Nama course">
+                <strong>Nama Program</strong>
+                <input type="text" name="course_name" value="{{ $course->course_name }}" class="form-control" placeholder="Nama course" required>
                 </div>
             </div>
 

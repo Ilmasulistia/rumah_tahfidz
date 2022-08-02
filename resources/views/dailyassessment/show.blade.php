@@ -13,7 +13,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Batas Hafalan</h1>
+                <h2 class="m-0 text-dark">Batas Hafalan</h2>
+                
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -26,6 +27,27 @@
         <div class="row mb-2">
             <div class="col-12">
                 <link href="{{asset('/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+                <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+                @if($roles == 1)
+                <a href="{{route('hafalan.cetak', [$student_assessment->student_assessment_id])}}"
+                    class="btn btn-primary btn-sm">Cetak<i class="fas fa-print"></i></a>
+                    @if (session('Status'))
+                    <div class="alert alert-success">
+                        {{ session('Status') }}
+                    </div>
+                    @endif
+                @endif
+                @if($roles == 2)
+                <a href="{{route('penilaian.create', [$student_assessment->student_assessment_id])}}" class="btn btn-primary">Tambah Hafalan</a>
+                <a href="{{route('hafalan.cetak', [$student_assessment->student_assessment_id])}}"
+                    class="btn btn-primary btn-sm">Cetak<i class="fas fa-print"></i></a>
+                    @if (session('Status'))
+                    <div class="alert alert-success">
+                        {{ session('Status') }}
+                    </div>
+                    @endif
+                @endif
+                </nav>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -33,16 +55,23 @@
 
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
+                                <table class="display" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th scope="col">Tanggal</th>
-                                            <th scope="col">No Surah</th>
-                                            <th scope="col">Dari ayat</th>
-                                            <th scope="col">Sampai ayat</th>
+                                            <th scope="col">Juz</th>
+                                            <th scope="col">Halaman</th>
+                                            <th scope="col">Bagian 1</th>
+                                            <th scope="col">Bagian 2</th>
+                                            <th scope="col">Bagian 3</th>
                                             <th scope="col">Keterangan</th>
+                                            @if($roles == 1)
                                             <th scope="col">Aksi</th>
+                                            @elseif($roles == 2)
+                                            <th scope="col">Aksi</th>
+                                            @endif
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,24 +79,38 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$daily->date_of_recitation}}</td>
-                                            <td>{{$daily->surah_no}}</td>
-                                            <td>{{$daily->verse}}</td>
-                                            <td>{{$daily->verse_end}}</td>
+                                            <td>{{$daily->juz_no}}</td>
+                                            <td>{{$daily->page_no}}</td>
+                                            <td>{{$daily->part1}}</td>
+                                            <td>{{$daily->part2}}</td>
+                                            <td>{{$daily->part3}}</td>
                                             <td>{{$daily->information}}</td>
+                                            @if($roles == 1)
                                             <td>
-                
-                                                <a href="#"  class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                                <form action="#" method="post"
+                                            
+                                                <form
+                                                    action="{{route('penilaian.delete',[$daily->daily_assessment_id]) }}"
+                                                    method="post"
                                                     onclick="return confirm('Anda yakin menghapus data ?')"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash-alt"></i>
+                                                        <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
-                                                    <a href="#"  class="btn btn-primary btn-sm">Cetak<i class="fas fa-print"></i></a>
                                             </td>
+                                            @elseif($roles == 2)
+                                            <td>
+                                            <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
+                        data-target="#exampleModal">Tambah</button>
+                                                <a href="{{route('penilaian.nilai', [$daily->daily_assessment_id])}}"
+                                                class="btn btn-primary btn-sm">Isi</a>
+                                                <a href="{{route('penilaian.edit', [$daily->daily_assessment_id])}}"
+                                                    class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                            @endif
+                                
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -80,8 +123,8 @@
                                 </div>
                             </div>
                         </div><!-- /.container-fluid -->
-                    </div>    
-                </div>  
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -92,28 +135,18 @@
 
 @stop
 
-<script src="{{asset('/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- Core plugin JavaScript-->
-<script src="{{asset('/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<!-- Custom scripts for all pages-->
-<script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
-<!-- Page level plugins -->
-<script src="{{asset('/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Page level custom scripts -->
-<script src="{{asset('/js/demo/datatables-demo.js')}}"></script>
-@section('mscript')
+@section('javascript')
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <script>
-    $('.date').datepicker({
+$('.date').datepicker({
         format: 'mm-dd-yyyy'
-    });
+ });
 
-
-    $(document).ready(function () {
-        $('#tbpas').DataTable();
-    });
-
+$(document).ready( function () {
+    $('#tbpas').DataTable();
+} );
 </script>
+
 
 
 

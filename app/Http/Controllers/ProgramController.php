@@ -24,7 +24,7 @@ class ProgramController extends Controller
         $program->program_id = $request->program_id;
         $program->program_name = $request->program_name;
         $program->save();
-        return redirect()->route('program.index');
+        return redirect()->route('program.index')->with('Status', 'Data Berhasil Ditambah');
     }
 
     public function edit($program_id)
@@ -35,20 +35,20 @@ class ProgramController extends Controller
 
         public function update(Request $request, Program $program_id)
     {
-        // $validation = $request->validate([
-        //         'program_name' => 'required|min:5'
-        //     ],
-        //     [
-        //         'program_name.required' => 'Harus diisi',
-        //         'program_name.min' => 'Minimal 5 Karakter',
-        //     ]
-        // );
+        $validation = $request->validate([
+                'program_name' => 'required|min:5'
+            ],
+            [
+                'program_name.required' => 'Harus diisi',
+                'program_name.min' => 'Minimal 5 Karakter',
+            ]
+        );
 
         $program = Program::find($request->program_id);
         $program->program_id= $request->input('program_id');
         $program->program_name= $request->input('program_name');
         $program->update();
-        return redirect()->route('program.index');
+        return redirect()->route('program.index')->with('Status', 'Data Berhasil Diubah');
     }
     public function delete($program_id)
     {

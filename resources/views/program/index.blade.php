@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Program</h1>
+                <h2 class="m-0 text-dark">Data Detail Program</h2>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -27,8 +27,12 @@
             <div class="col-12">
                 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
                     <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
-                        data-target="#exampleModal">Tambah Data program</button>
-
+                        data-target="#exampleModal">Tambah Data Detail Program</button>
+                        @if (session('Status'))
+                    <div class="alert alert-success">
+                        {{ session('Status') }}
+                    </div>
+                    @endif
                 </nav>
 
                 <div class="row">
@@ -37,13 +41,13 @@
                             <div class="card card-primary">
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered" id="tbpas" width="100%" cellspacing="0">
+                                <table class="display" id="tbpas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th scope="col">Nama program</th>
+                                            <th scope="col">Nama Detail Program</th>
                                             <th scope="col">Aksi</th>
-
+                                            <th scope="col">Materi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,9 +56,6 @@
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$prog->program_name}}</td>
                                             <td>
-                                                <a href="{{route('programdetail.index', [$prog->program_id])}}"
-                                                    class="btn btn-info btn-sm">Detail<i
-                                                        class="fas fa-info-circle"></i></a>
                                                 <a href="{{route('program.edit', [$prog->program_id])}}"
                                                     class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
 
@@ -67,6 +68,10 @@
                                                     <button class="btn btn-danger btn-sm"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </form>
+                                            </td>
+                                            <td><a href="{{route('programdetail.index', [$prog->program_id])}}"
+                                                    class="btn btn-info btn-sm">Materi<i
+                                                        class="fas fa-info-circle"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -93,7 +98,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah data program</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah data detail program</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,10 +108,10 @@
                 <form action="{{route('program.store')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label @error('program_name') class="text-danger" @enderror>Nama program @error('program_name')
+                        <label @error('program_name') class="text-danger" @enderror>Nama detail program @error('program_name')
                             | {{$message}}
                             @enderror</label>
-                        <input name="program_name" type="text" class="form-control" placeholder="Nama program">
+                        <input name="program_name" type="text" class="form-control" placeholder="Nama detail program" required>
                     </div>
             </div>
             <div class="modal-footer">
@@ -120,28 +125,18 @@
 
 @stop
 
-<script src="{{asset('/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- Core plugin JavaScript-->
-<script src="{{asset('/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<!-- Custom scripts for all pages-->
-<script src="{{asset('/js/sb-admin-2.min.js')}}"></script>
-<!-- Page level plugins -->
-<script src="{{asset('/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Page level custom scripts -->
-<script src="{{asset('/js/demo/datatables-demo.js')}}"></script>
-@section('mscript')
+@section('javascript')
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <script>
-    $('.date').datepicker({
+$('.date').datepicker({
         format: 'mm-dd-yyyy'
-    });
+ });
 
-
-    $(document).ready(function () {
-        $('#tbpas').DataTable();
-    });
-
+$(document).ready( function () {
+    $('#tbpas').DataTable();
+} );
 </script>
+
 
 
 

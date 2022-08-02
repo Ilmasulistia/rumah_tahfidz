@@ -14,30 +14,39 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'user_id' => Str::random(10),
-            'role_id' => 1,
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',      
-            'password' => bcrypt('admin123'),
-            'remember_token' => Str::random(30),
-        ]);
-        DB::table('users')->insert([
-            'user_id' => Str::random(10),
-            'role_id' => 2,
-            'username' => 'guru',
-            'email' => 'guru@gmail.com',      
-            'password' => bcrypt('guru'),
-            'remember_token' => Str::random(30),
-        ]);
-        DB::table('users')->insert([
-            'user_id' => Str::random(10),
-            'role_id' => 3,
-            'username' => 'santri',
-            'email' => 'santri@gmail.com',      
-            'password' => bcrypt('santri'),
-            'remember_token' => Str::random(30),
+        // DB::table('users')->insert([
+        //     'user_id' => Str::random(10),
+        //     'role_id' => 1,
+        //     'username' => 'admin',
+        //     'email' => 'admin@gmail.com',      
+        //     'password' => bcrypt('admin123'),
+        //     'remember_token' => Str::random(30),
+        // ]);
+        // DB::table('users')->insert([
+        //     'user_id' => Str::random(10),
+        //     'role_id' => 2,
+        //     'username' => 'guru',
+        //     'email' => 'guru@gmail.com',      
+        //     'password' => bcrypt('guru'),
+        //     'remember_token' => Str::random(30),
+        // ]);
+        // DB::table('users')->insert([
+        //     'user_id' => Str::random(10),
+        //     'role_id' => 3,
+        //     'username' => 'santri',
+        //     'email' => 'santri@gmail.com',      
+        //     'password' => bcrypt('santri'),
+        //     'remember_token' => Str::random(30),
             
-        ]);
+        // ]);
+        // DB::table('users')->insert([
+        //     'user_id' => Str::random(10),
+        //     'role_id' => 4,
+        //     'username' => 'kepala',
+        //     'email' => 'kepala@gmail.com',      
+        //     'password' => bcrypt('kepala'),
+        //     'remember_token' => Str::random(30),
+            
+        // ]);
     }
 }

@@ -9,7 +9,7 @@ class Student_assessment_detail extends Model
 {
     protected $primaryKey = ['student_assessment_detail_id'];
     protected $table = 'student_assessment_details';
-    protected $fillable = ['student_assessment_detail_id','student_assessment_id','number', 'affective', 
+    protected $fillable = ['student_assessment_detail_id','student_assessment_id','number', 'status', 
     'detail_id'];
     public $incrementing = false;
     public $timestamps = false;
@@ -19,7 +19,7 @@ class Student_assessment_detail extends Model
         return $this->belongsTo(Program_detail::class, 'detail_id', 'detail_id');
     }
     public function student_assessment() {
-        return $this->belongsTo(Student_assessment::class, 'student_assessment_id', 'student_assessment_id');
+        return $this->belongsTo(Student_assessment::class, 'student_assessment_id');
     }
 
     use AutoNumberTrait;

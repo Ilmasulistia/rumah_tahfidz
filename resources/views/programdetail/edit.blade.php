@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Edit Detail Program</h2>
+            <h3>Edit Materi Program</h3>
         </div>
     </div>
     <div class="card-body">
@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <strong>Materi</strong>
                     <input type="text" name="materi" value="{{ $program_detail->materi }}" class="form-control"
-                        placeholder="Materi">
+                        placeholder="Materi" required>
                 </div>
             </div>
 

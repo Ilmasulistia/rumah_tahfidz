@@ -29,25 +29,25 @@ class ManagementController extends Controller
         $management->nik= $request->input('nik');
         $management->position = $request->position;
         $management->save();
-        return redirect()->route('management.index');
+        return redirect()->route('management.index')->with('Status', 'Data Berhasil Ditambah');
     }
 
     public function edit($management_id)
     {
         $management = Management::where('management_id', $management_id)->first();
-        return view('management.edit',compact('management','management_id'));
+        $teacher = Teacher::all();
+        return view('management.edit',compact('management','management_id','teacher'));
 
     }
 
-        public function update(Request $request, Management $management_id)
+    public function update(Request $request, $management_id)
     {
-        $management = Management::find($request->management_id);
-        $management->management_id= $request->input('management_id');
-        $management->start_periode= $request->input('start_periode');
-        $management->nik= $request->input('nik');
-        $management->position = $requst->input('position');
-        $management->update();
-        return redirect()->route('management.index');
+        $management = Management::where('management_id', $management_id)->update([
+            'start_periode' => $request->input('start_periode'),
+            'nik'=> $request->input('nik'),
+            'position' => $request->input('position'),
+        ]);
+        return redirect()->route('management.index')->with('Status', 'Data Berhasil Diubah');
     }
     public function delete($management_id)
     {

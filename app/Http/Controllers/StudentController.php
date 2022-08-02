@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\User;
+use App\Role;
+use App\Exports\StudentExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\FromView;
+use Auth;
 
 
 class StudentController extends Controller
@@ -12,9 +17,14 @@ class StudentController extends Controller
     
     public function index()
     {
+        $roles = Auth::user()->role_id;
+        if (Auth::user()->role_id == 1) {
+            $student = Student::all();
+        } else if (Auth::user()->role_id ==4){
+            $student = Student::all();
+        }
         $student=Student::all();
-
-        return view('student.index', compact('student'));
+        return view('student.index', compact('student','roles'));
     }
     
     public function create()
@@ -24,31 +34,27 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {        
-        // $student = Student::create([
-        //     'student_id'=>$request->input('student_id'),
-        //     'name'=>$request->input('name'),
-        //     'gender'=>$request->input('gender'),
-        //     'school_name'=>$request->input('school_name'),
-        //     'address'=>$request->input('address'),
-        //     'birth_place'=>$request->input('birth_place'),
-        //     'birth_date'=>$request->input('birth_date'),
-        //     'parents_name'=>$request->input('parents_name'),
-        //     'phone_no'=>$request->input('phone_no'),
-        //     'parent_occupation'=>$request->input('parent_occupation'),
-        //     'tuition_fee'=>$request->input('tuition_fee'),
-        //     'join_date'=>$request->input('join_date'),
-        //     'group_id'=>$request->input('group_id'),
-                    
-        //     ]);
-                            
-        //     return redirect()->route('student.index');
-                // $request->validate([
-                //     'user_id' => 'required|unique:users',
-                //     'role_id' => 'required',
-                //     'username' => 'required',
-                //     'email' => 'required|unique:users',
-                //     'password' => 'required',
-                // ]);
+        
+                $validation = $request->validate([
+                    'user_id' => 'required',
+                    'username' => 'required|min:5',
+                    'email' => 'required|min:5'
+                ],
+                [
+                    'name.required' => 'Harus diisi',
+                    'name.min' => 'Minimal 5 Karakter',
+                    'gender.required' => 'Harus diisi',
+                    'school_name.required' => 'Harus diisi',
+                    'address.required' => 'Harus diisi',
+                    'birth_place.required' => 'Harus diisi',
+                    'birth_date.required' => 'Harus diisi',
+                    'parents_name.required' => 'Harus diisi',
+                    'phone_no.required' => 'Harus diisi',
+                    'parent_occupation.required' => 'Harus diisi',
+                    'tuition_fee.required' => 'Harus Diisi',
+                    'join_date.required' => 'Harus Diisi'
+                ]
+            );
             $user = new User();
             $user->user_id = $request->user_id; 
             $user->role_id = "3";
@@ -57,21 +63,6 @@ class StudentController extends Controller
             $user->password = bcrypt($request->user_id);
             $user->save();
                     
-            // $request->validate([
-            //     'student_id' => 'required',
-            //     'name' =>'required',
-            //     'gender' => 'required',
-            //     'school_name' => 'required',
-            //     'address' => 'required',
-            //     'birth_place'=> 'required',
-            //     'birth_date' => 'required',
-            //     'parents_name' => 'required',
-            //     'phone_no' => 'required',
-            //     'parent_occupation' => 'required',
-            //     'tuition_fee' => 'required',
-            //     'join_date' => 'required',
-            //     'group_id' => 'required',
-            // ]);
 
             $student = new student();
             $student->student_id = $request->user_id;
@@ -88,7 +79,7 @@ class StudentController extends Controller
             $student->join_date = $request->join_date;
             $student->save();
           
-            return redirect()->route('student.index');
+            return redirect()->route('student.index')->with('Status', 'Data Berhasil Ditambah');
     }
 
     public function show($student_id)
@@ -119,7 +110,13 @@ class StudentController extends Controller
         $student->tuition_fee= $request->input('tuition_fee');
         $student->join_date= $request->input('join_date');
         $student->update();
-        return redirect()->route('student.index');
+        return redirect()->route('student.index')->with('Status', 'Data Berhasil Diubah');
+    }
+
+    public function studentexport()
+    {
+        return Excel::download(new StudentExport,'santri.xlsx');
+
     }
 
     public function delete($student_id)

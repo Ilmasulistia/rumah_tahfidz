@@ -4,33 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Teacher;
 use App\User;
+use App\Role;
+use App\Exports\TeacherExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Auth;
 
 class TeacherController extends Controller
 {
     
     public function index()
     {
+        $roles = Auth::user()->role_id;
+        if (Auth::user()->role_id == 1) {
+            $teacher = Teacher::all();
+        } else if (Auth::user()->role_id ==4){
+            $teacher = Teacher::all();
+        }
         $teacher=Teacher::all();
-
-        return view('teacher.index', compact('teacher'));
+        return view('teacher.index', compact('teacher','roles'));
     }
 
     public function create()
     {
         return view('teacher.create');
     }
-
-    // public function store(Request $request)
-    // {
-    //     Teacher::create([
-    //         'nik' => $request->nik,
-    //         'name' => $request->name,
-    //         'address' => $request->address,
-    //         'phone_no' => $request->phone_no
-    //     ]);
-    //     return redirect()->route('teacher.index');
-    // }
 
     public function store(Request $request)
     {
@@ -49,7 +47,7 @@ class TeacherController extends Controller
         $teacher->phone_no = $request->phone_no;
         $teacher->save();
         
-        return redirect()->route('teacher.index');
+        return redirect()->route('teacher.index')->with('Status', 'Data Berhasil Ditambah');
     }
 
     public function show(Teacher $teacher)
@@ -66,23 +64,19 @@ class TeacherController extends Controller
 
     public function update(Request $request, Teacher $nik )
     {
-        // dd($request->all());
-        // $teacher = Teacher::where('nik',$request->$nik)->update([
-        //     'name'=> $request->input('name'),
-        //     'address' => $request->input('address'),
-        //     'phone_no' =>$request->input('phone_no')
-        // ]);
-
-        // return redirect()->route('teacher.index');
-        
-
         $teacher = Teacher::find($request->nik);
         $teacher->name= $request->input('nik');
         $teacher->name= $request->input('name');
         $teacher->address= $request->input('address');
         $teacher->phone_no= $request->input('phone_no');
         $teacher->update();
-        return redirect()->route('teacher.index');
+        return redirect()->route('teacher.index')->with('Status', 'Data Berhasil Diubah');
+    }
+
+    public function teacherexport()
+    {
+        return Excel::download(new TeacherExport,'guru.xlsx');
+
     }
 
     public function delete($nik)

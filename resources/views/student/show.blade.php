@@ -34,7 +34,11 @@
                             <tr>
                                 <th>Jenis Kelamin</th>
                                 <td>:</td>
-                                <td>{{ $student->gender }}</td>
+                                <td>
+                                @if($student->gender == 1)<a>Laki-laki</a>
+                                @else<a>Perempuan</a>
+                                @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th>Asal Sekolah</th>

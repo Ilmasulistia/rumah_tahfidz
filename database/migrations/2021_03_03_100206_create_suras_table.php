@@ -14,11 +14,13 @@ class CreateSurasTable extends Migration
     public function up()
     {
         Schema::create('suras', function (Blueprint $table) {
-            $table->string('surah_no', 3);
-            $table->string('surah_name', 15);
+            $table->string('juz_no', 3);
+            $table->string('page_no', 25);
             $table->timestamps();
 
-            $table->primary('surah_no', 3);
+            $table->primary('juz_no', 3);
+            $table->foreign('page_no')->references('page_no')->on('pages')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
