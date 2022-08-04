@@ -174,10 +174,14 @@
             <td>{{$daily->date_of_recitation}}</td>
             <td>{{$daily->juz_no}}</td>
             <td>{{$daily->page_no}}</td>
-            <td>{{$daily->part1}}</td>
-            <td>{{$daily->part2}}</td>
-            <td>{{$daily->part3}}</td>
-            <td>{{$daily->information}}</td>
+            <td @if($daily['part1'] <1) style="color: red;" @endif>@if($daily->part1
+                <=3) {{ "Sudah Setor" }} @else {{"Belum setor"}} @endif</td> <td
+                    @if($daily['part1']==1) style="color: red;" @endif>@if($daily->part1
+                    >=2 ) {{ "Sudah Setor" }} @else {{"Belum setor"}} @endif</td>
+            <td @if($daily['part1'] !=3) style="color: red;" @endif>@if($daily->part1
+                ==3) {{ "Sudah Setor" }} @else {{"Belum setor"}} @endif</td>
+            <td>@if($daily->information == null) {{"Tanpa keterangan"}} @else
+                {{$daily->information}} @endif</td>
             <td></td>
         </tr>
         @endforeach

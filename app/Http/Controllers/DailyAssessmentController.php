@@ -18,7 +18,7 @@ use PDF;
 
 class DailyAssessmentController extends Controller
 {
-    public function index($student_assessment_id)
+    public function index($student_assessment_id, Daily_assessment $daily_assessment_id)
     {
         $roles = Auth::user()->role_id;
         if (Auth::user()->role_id == 1) {
@@ -30,25 +30,18 @@ class DailyAssessmentController extends Controller
         }
         $daily_assessment = Daily_assessment::where('student_assessment_id', $student_assessment_id)->get();
         $student_assessment = Student_assessment::where('student_assessment_id', $student_assessment_id)->first();
-        $sura = Sura::all();
-        return view('dailyassessment.index', compact('daily_assessment','student_assessment','student_assessment_id', 'sura','roles'));
+        $edited = $daily_assessment->where('daily_assessment_id', $daily_assessment_id)->first();
+        // dd($edited);
+        $sura = Sura::orderBy('juz_no', 'ASC')->pluck('juz_no');
+        // dd($sura);
+
+   
+        return view('dailyassessment.index_x', compact('daily_assessment', 'daily_assessment_id', 'edited', 'student_assessment','student_assessment_id', 'sura','roles'));
         // $daily_assessment = Daily_assessment::all();
         // return view('studentassessment.index', compact('studentassessment'));
     }
 
-        public function create($student_assessment_id)
-    {
-        $daily_assessment = Daily_assessment::join('student_assessments', 'student_assessments.student_assessment_id', 'daily_assessments.student_assessment_id')
-        ->where('daily_assessments.student_assessment_id', $student_assessment_id)->first();
-        $student_assessment = Student_assessment::where('student_assessment_id', $student_assessment_id)->first();
-        // $sura = Sura::distinct('juz')->get();
-        // $page = Pages::all();
-        $sura = Sura::all();
-        // $sura = Sura::where('juz_no', $juz_no)->get();
-        $daily_assessment = Daily_assessment::where('student_assessment_id', $student_assessment_id)->first();
-        // dd($student_assessment->student_id);
-        return view('dailyassessment.create', compact('daily_assessment', 'student_assessment', 'student_assessment_id', 'sura'));
-    }
+
 
     //     public function store(Request $request, $student_assessment_id)
     // {
@@ -67,22 +60,37 @@ class DailyAssessmentController extends Controller
 
     public function store(Request $request, $student_assessment_id)
     {
-        $class_id = Student_assessment::select('class_id')->where('student_assessment_id', $student_assessment_id)->first();
-        // $sura = Sura::where('student_assessment_id', $student_assessment_id)->distinct('juz')->get();
-        $daily_assessment = new Daily_assessment();
-        $daily_assessment->daily_assessment_id = $request->daily_assessment_id;
-        $daily_assessment->student_assessment_id = $student_assessment_id;
-        $daily_assessment->date_of_recitation = $request->date_of_recitation;
-        $daily_assessment->juz_no = $request->juz_no;
-        $daily_assessment->page_no = $request->page_no;
-        $daily_assessment->part1 = $request->part1;
-        $daily_assessment->part2 = $request->part2;
-        $daily_assessment->part3 = $request->part3;
-        $daily_assessment->information = $request->information;
-        $daily_assessment->save();
-        // return redirect()->route('penilaian.show', ['student_assessment_id'=> $student_assessment_id->student_assessment_id])->with('Status', 'Data Berhasil Ditambah');
-        return redirect()->back()->with('Status', 'Data Berhasil Ditambah'); 
-        // return redirect()->route('penilaian.show')->with('Status', 'Data Berhasil Ditambah');
+        try {
+            $class_id = Student_assessment::select('class_id')->where('student_assessment_id', $student_assessment_id)->first();
+            // $sura = Sura::where('student_assessment_id', $student_assessment_id)->distinct('juz')->get();
+            $daily_assessment = new Daily_assessment();
+            $daily_assessment->daily_assessment_id = $request->daily_assessment_id;
+            $daily_assessment->student_assessment_id = $student_assessment_id;
+            $daily_assessment->date_of_recitation = $request->date_of_recitation;
+            $daily_assessment->juz_no = $request->juz_no;
+            $daily_assessment->page_no = $request->page_no;
+            $daily_assessment->part1 = $request->part1;
+            $daily_assessment->part2 = $request->part2;
+            $daily_assessment->part3 = $request->part3;
+            $daily_assessment->information = $request->information;
+            $daily_assessment->save();
+            // return redirect()->route('penilaian.show', ['student_assessment_id'=> $student_assessment_id->student_assessment_id])->with('Status', 'Data Berhasil Ditambah');
+            return redirect()->back()->with('Status', 'Data Berhasil Ditambah'); 
+            // return redirect()->route('penilaian.show')->with('Status', 'Data Berhasil Ditambah');
+        } catch (\Throwable $th) {
+            $data = Daily_assessment::where('daily_assessments.student_assessment_id', $request->student_assessment_id)->where('daily_assessments.juz_no', $request->juz_no)->where('daily_assessments.page_no', $request->page_no)->first();
+            $daily_assessment = Daily_assessment::where('daily_assessments.daily_assessment_id', $data->daily_assessment_id)->update([
+                'student_assessment_id' => $data->student_assessment_id,
+                'date_of_recitation'=> $request->input('date_of_recitation'),
+                'juz_no'=> $request->juz_no,
+                'page_no'=> $request->page_no,
+                'part1'=> $request->input('part1'),
+                'information'=> $request->input('information'),
+            ]);
+            // dd($daily_assessment);
+            return redirect()->back()->with('Status', 'Data Berhasil Ditambah'); 
+        }
+        
 
         
     }
@@ -126,12 +134,15 @@ class DailyAssessmentController extends Controller
         } else if (Auth::user()->role_id == 4){
             $student_assessment = Student_assessment::all();
         }
-        $student_assessment = Student_assessment::all();
-        $student = Student::all();
-        $classes = Classes::all();
-        // $course = Course::all();
-        // $sura = Sura::all();
-        return view('studentassessment.show', compact('student_assessment','student','classes',  'roles'));
+        $da_data = Daily_assessment::orderBy('juz_no', 'desc')->orderBy('page_no', 'desc')->orderBy('part1', 'desc')->first();
+        $student_assessment = Student_assessment::join('students', 'student_assessments.student_id', 'students.student_id')
+        ->join('class', 'student_assessments.class_id', 'class.class_id')
+        ->join()
+        ->get();
+
+        
+        // dd($da_data);
+        return view('studentassessment.show', compact('student_assessment', 'roles'));
     }
 
     public function nilai($daily_assessment_id)
@@ -163,14 +174,13 @@ class DailyAssessmentController extends Controller
     public function update(Request $request, Daily_assessment $daily_assessment_id)
     {
         // $class_id = Student_assessment::select('class_id')->where('student_assessment_id', $student_assessment_id)->first();
-        $daily_assessment = Daily_assessment::where('daily_assessment_id', $request->daily_assessment_id)->update([
+        $daily_assessment = Daily_assessment::where('daily_assessment_id', $daily_assessment_id)->update([
             'student_assessment_id' => $request->input('student_assessment_id'),
             'date_of_recitation'=> $request->input('date_of_recitation'),
             'juz_no'=> $request->input('juz_no'),
             'page_no'=> $request->input('page_no'),
             'part1'=> $request->input('part1'),
-            'part2'=> $request->input('part2'),
-            'part3'=> $request->input('part3'),
+            'information'=> $request->input('information'),
         ]);
         return redirect()->back(); 
     }

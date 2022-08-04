@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3 class="m-0 text-dark">Data Program Santri</h3>
+                <h3 class="m-0 text-dark">Ranking Hafalan Santri</h3>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -50,11 +50,12 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th scope="col">Nama Santri</th>
                                             <th scope="col">Semester</th>
                                             <th scope="col">Tahun</th>
-                                            <th scope="col">Program</th>
+                                            <th scope="col">Batas Hafalan</th>
                                             <th scope="col">Guru Pengampu</th>
-                                            <th scope="col">Nama Santri</th>
+                                            
                                             
                                         </tr>
                                     </thead>
@@ -62,11 +63,12 @@
                                     @foreach($student_assessment as $assessment)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
-                                            <td>{{$assessment->classes->semester}}</td>
-                                                <td>{{$assessment->classes->year}}</td>
-                                                <td>{{$assessment->classes->course->course_name}}</td>
+                                            <td>{{$assessment->name}}</td>
+                                                <td>{{$assessment->semester}}</td>
+                                                <td>{{$assessment->year}}</td>
+                                                <td></td>
                                                 <td>{{$assessment->classes->teacher->name}}</td>
-                                                <td>{{$assessment->student->name}}</td>
+                                               
                                         </tr>
                                         @endforeach
                                     </tbody>

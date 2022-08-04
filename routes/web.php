@@ -103,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/batashafalan/show/{student_assessment_id}', 'DailyAssessmentController@show')->name('penilaian.show');
         Route::get('/penilaianharian/create/{student_assessment_id}', 'DailyAssessmentController@create')->name('penilaian.create');
         Route::get('/editpenilaianharian/{daily_assessment_id}', 'DailyAssessmentController@edit')->name('penilaian.edit');
-        Route::patch('/penilaianharian/create/', 'DailyAssessmentController@update')->name('penilaian.update');
+        Route::patch('/penilaianharian/update', 'DailyAssessmentController@update')->name('penilaian.update');
         Route::post('/penilaianharian/create/{student_assessmet_id}', 'DailyAssessmentController@store')->name('penilaian.store');
         Route::delete('/hapuspenilaian/{daily_assessment_id}' , 'DailyAssessmentController@delete')->name('penilaian.delete');
 
