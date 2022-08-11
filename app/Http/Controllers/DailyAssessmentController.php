@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Auth;
 use PDF;
 
+
 class DailyAssessmentController extends Controller
 {
     public function index($student_assessment_id, Daily_assessment $daily_assessment_id)
@@ -134,15 +135,16 @@ class DailyAssessmentController extends Controller
         } else if (Auth::user()->role_id == 4){
             $student_assessment = Student_assessment::all();
         }
-        $da_data = Daily_assessment::orderBy('juz_no', 'desc')->orderBy('page_no', 'desc')->orderBy('part1', 'desc')->first();
-        $student_assessment = Student_assessment::join('students', 'student_assessments.student_id', 'students.student_id')
-        ->join('class', 'student_assessments.class_id', 'class.class_id')
-        ->join()
-        ->get();
+        $sa1=DB::select("SELECT da.student_assessment_id, s.name as S_name, s.school_name as school, s.address, t.name as T_name, c.semester, c.year, da.daily_assessment_id, da.juz_no, da.page_no, da.part1 
+        FROM students s, class c, teachers t, student_assessments sa, daily_assessments da WHERE s.student_id = sa.student_id AND sa.class_id=c.class_id AND c.nik=t.nik AND da.student_assessment_id=sa.student_assessment_id GROUP BY da.student_assessment_id ORDER BY da.juz_no DESC, da.page_no DESC, da.part1 DESC;");
 
-        
-        // dd($da_data);
-        return view('studentassessment.show', compact('student_assessment', 'roles'));
+        $sa2 = DB::select("SELECT s.name as S_name, s.school_name as school, s.address, t.name as T_name, c.semester, c.year, da.daily_assessment_id, da.student_assessment_id, da.juz_no, da.page_no, da.part1 
+        FROM students s LEFT JOIN student_assessments sa ON s.student_id=sa.student_id LEFT JOIN class c ON sa.class_id=c.class_id LEFT JOIN teachers t ON c.nik=t.nik
+        LEFT JOIN daily_assessments da ON sa.student_assessment_id=da.student_assessment_id WHERE da.daily_assessment_id IS NULL");
+
+        $datas = array_merge($sa1, $sa2);
+    
+        return view('studentassessment.show', compact('datas',  'sa1', 'sa2', 'roles'));
     }
 
     public function nilai($daily_assessment_id)

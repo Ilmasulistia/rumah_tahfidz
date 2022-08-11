@@ -21,6 +21,12 @@ class Daily_assessment extends Model
         return $this->belongsTo(Student_assessment::class, 'student_assessment_id', 'student_assessment_id');
     }
 
+    public function oldest()
+    {
+        return $this->hasOne(Student_assessment::class)->oldestOfMany();
+    }
+
+
     use AutoNumberTrait;
     public function getAutoNumberOptions()
     {

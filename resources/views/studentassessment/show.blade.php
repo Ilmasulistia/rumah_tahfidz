@@ -60,17 +60,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($student_assessment as $assessment)
+                                    @foreach($datas as $data)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
-                                            <td>{{$assessment->name}}</td>
-                                                <td>{{$assessment->semester}}</td>
-                                                <td>{{$assessment->year}}</td>
-                                                <td></td>
-                                                <td>{{$assessment->classes->teacher->name}}</td>
+                                            <td>{{$data->S_name}}</td>
+                                                <td>{{$data->semester}}</td>
+                                                <td>{{$data->year}}</td>
+                                                @if($data->daily_assessment_id == null)
+                                                <td>Juz ke 0 - Halaman ke 0 - Bagian ke 0</td>
+                                                @else
+                                                <td>Juz ke {{$data->juz_no}} - Halaman ke {{$data->page_no}} - Bagian ke {{$data->part1}}</td>
+                                                @endif
+                                                <td>{{$data->T_name}}</td>
                                                
                                         </tr>
-                                        @endforeach
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
